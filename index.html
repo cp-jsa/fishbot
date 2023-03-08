@@ -1,6 +1,566 @@
 <html>
-  <head>
-  <title>Placeholder</title>
-  </head>
-  <body><p>Placeholder</p></body>
+	<head>
+		<meta name="robots" content="noindex,nofollow" />
+		<title>
+			JSA Fishbot
+		</title>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+			:root {
+				--jsa-white: RGB(250,250,250);
+				--jsa-black: RGB(20,20,20);
+				--jsa-red: RGB(212,60,53);
+				/*JSA red + 5% L in HSL*/
+				--jsa-light-red: #D9514A;
+				/*JSA red - 10% L in HSL*/
+				--jsa-dark-red: #B12C25;
+				--jsa-pink: #F07A7E;
+				--jsa-blue: #7A87F0;
+				--jsa-yellow: #F0D67A;
+				--horizontal-margin: 5vw;
+			}
+			body {
+				background-color: var(--jsa-white);
+				margin: 0;
+			}
+			p, label, input, button, li, a, h1, h2, h3, h4, h5, h6, td, th {
+				font-family: "Noto Sans", sans-serif;
+				margin: 0 0 0.75vw 0;
+				color: inherit;
+			}
+			p, label, input, button, li, a {
+				font-size: 1.5vw;
+			}
+			h1, h2, h3, h4, h5, h6 {
+				font-weight: bold;
+			}
+			h2, h3, h4, h5, h6 {
+				text-shadow: 0.15vw 0.15vw 0.15vw var(--jsa-black);
+			}
+			h1 {
+				font-size: 4vw;
+				margin: 0 0 2vw 0;
+			}
+			h2 {
+				font-size: 3vw;
+				margin: 0 0 1.5vw 0;
+			}
+			h3 {
+				font-size: 2.5vw;
+				margin: 0 0 1.25vw 0;
+			}
+			h4 {
+				font-size: 2.25vw;
+				margin: 0 0 1.125vw 0;
+			}
+			a {
+				color: var(--jsa-blue);
+			}
+			button, input {
+				background: none;
+				border: 0.2vw solid var(--jsa-white);
+				border-radius: 0.5vw;
+				padding: 0.75vw;
+				margin: 0.5vw;
+				box-shadow: 0.2vw 0.2vw 0.2vw 0.05vw var(--jsa-black);
+			}
+			button:hover, input:hover {
+				background-color: var(--jsa-light-red);
+			}
+			button:active, input:focus {
+				background-color: var(--jsa-dark-red);
+				transform: translate(5%, 5%);
+				box-shadow: 0.05vw 0.05vw 0.2vw 0.05vw var(--jsa-black);
+				outline: none;
+			}
+			input:invalid {
+				border: 0.2vw solid var(--jsa-red);
+				background-color: var(--jsa-dark-red);
+			}
+			ul {
+				margin: 0;
+				padding: 0 0 0 2vw;
+			}
+			section, header {
+				margin: 5vh var(--horizontal-margin);
+				padding: 2vw;
+			}
+			section {
+				background-color: var(--jsa-red);
+				color: var(--jsa-white);
+			}
+			header {
+				color: var(--jsa-black);
+			}
+			footer {
+				margin: 2.5vw var(--horizontal-margin);
+				color: var(--jsa-black);
+				text-align: right;
+				margin: none;
+			}
+			table {
+				--border-width: 0.5vw;
+				color: var(--jsa-white);
+				table-layout: fixed;
+				border-collapse: collapse;
+				border: var(--border-width) solid var(--jsa-white);
+				width: 100%;
+				text-align: center;
+			}
+			th, td {
+				font-size: 2vw;
+				border-style: solid;
+				border-color: var(--jsa-white);
+				height: 5vw;
+			}
+			thead th {
+				border-width: var(--border-width);
+			}
+			td, tbody th {
+				border-width: 0vw var(--border-width);
+			}
+			tbody > tr:nth-child(odd) {
+				background-color: var(--jsa-light-red);
+			}
+			td.reserved {
+				background-color: var(--jsa-pink);
+				position: relative;
+			}
+			td.reserved::after {
+				content: "✔";
+				position: absolute;
+				font-size: 2vw;
+				text-align: center;
+				width: 100%;
+				top: 50%;
+				transform: translateY(-50%);
+				left: 0;
+			th > span {
+				position: absolute;
+				font-size: 1.2vw;
+				text-align: center;
+				top: 65%;
+				left: 0;
+				width: 100%;
+			}
+			.highlighted {
+				z-index: 0;
+				position: relative;
+				margin: 0 0.2vw 0.75vw 0.2vw;
+			}
+			.highlighted::before {
+				content: "";
+				background: var(--jsa-yellow);
+				opacity: 0.6;
+				z-index: -1;
+				position: absolute;
+				display: block;
+				height: 110%;
+				width: 120%;
+				top: -5%;
+				left: -5%;
+				transform: skew(-20deg) rotate(-5deg);
+				filter: blur(0.1vw);
+			}
+			#numberOfEmails {
+				font-size: 2vw;
+				margin: 0 0.2vw 0.75vw 1vw;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>
+				JSA Fishbot
+			</h1>
+		</header>
+		<main>
+			<section>
+				<h2>
+					Reserved times
+				</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>
+							</th>
+							<th>
+								Sun.
+								<br />
+								<span>
+									3/12
+								</span>
+							</th>
+							<th>
+								Mon.
+								<br />
+								<span>
+									3/13
+								</span>
+							</th>
+							<th>
+								Tue.
+								<br />
+								<span>
+									3/14
+								</span>
+							</th>
+							<th>
+								Wed.
+								<br />
+								<span>
+									3/15
+								</span>
+							</th>
+							<th>
+								Thu.
+								<br />
+								<span>
+									3/9
+								</span>
+							</th>
+							<th>
+								Fri.
+								<br />
+								<span>
+									3/10
+								</span>
+							</th>
+							<th>
+								Sat.
+								<br />
+								<span>
+									3/11
+								</span>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>
+								9:00 AM
+							</th>
+							<td>
+							</td>
+							<td class="reserved">
+							</td>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								10:00 AM
+							</th>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								11:00 AM
+							</th>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								12:00 PM
+							</th>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								1:00 PM
+							</th>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								2:00 PM
+							</th>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								3:00 PM
+							</th>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								4:00 PM
+							</th>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								5:00 PM
+							</th>
+							<td>
+							</td>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td class="reserved">
+							</td>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								6:00 PM
+							</th>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								7:00 PM
+							</th>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td class="reserved">
+							</td>
+							<td class="reserved">
+							</td>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								8:00 PM
+							</th>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td class="reserved">
+							</td>
+							<td class="reserved">
+							</td>
+							<td class="reserved">
+							</td>
+							<td>
+							</td>
+							<td>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<h2>
+					Please contribute your e-mail address
+				</h2>
+				<p>
+					Number of e-mails: <span class="highlighted" id="numberOfEmails">123</span>
+				</p>
+				<p>
+					E-mails of 1st and 2nd years are wanted
+				</p>
+				<h3>
+					E-mail forwarding tutorials
+				</h3>
+				<h4>
+					GMail
+				</h4>
+				<!--
+				<video src="" />
+				-->
+				<h4>
+					Outlook
+				</h4>
+				<!--
+				<video src="" />
+				-->
+				<h3>
+					E-mail submission form
+				</h3>
+				<p>
+					For now, this opens a prompt asking you to send us a specific e-mail message
+				</p>
+				<label for="email">
+					E-mail:
+				</label>
+				<input type="email" pattern=".+@calpoly.edu" id="submittedEmail" />
+				<button id="submitEmail">
+					Submit
+				</button>
+			</section>
+			<section>
+				<h2>
+					Additions
+				</h2>
+				<ul>
+					<li>
+						Safety checks for future issues
+					</li>
+					<li>
+						Can register multiple days at once to get caught up
+					</li>
+					<li>
+						Video tutorials for e-mail forwarding
+					</li>
+					<li>
+						A lot of technical stuff
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h2>
+					Internals
+				</h2>
+				<p>
+					<a href="https://github.com/cp-jsa/jsa_fishbot">
+						Source code
+					</a>
+				</p>
+				<p>
+					<a href="https://github.com/cp-jsa">
+						Club GitHub account
+					</a>
+				</p>
+		</main>
+		<footer>
+			<p>
+				Cal Poly JSA, 2023
+			</p>
+		</footer>
+	</body>
+	<script>
+		//Displaying number of e-mails
+		//Sending HTTP request to AWS Lambda function
+		//...
+
+		//E-mail submission
+		document.getElementById("submitEmail").addEventListener("click", function() {
+			const SUBMITTED_EMAIL = document.getElementById("submittedEmail");
+			if (SUBMITTED_EMAIL.value !== "" && SUBMITTED_EMAIL.checkValidity()) {
+				//Sending HTTP request to AWS Lambda function
+				//...
+
+				//Temporarily just having them e-mail us
+				window.open("mailto:calpolyjsaprogramming@gmail.com?subject=New%20e-mail&body=" + encodeURIComponent(SUBMITTED_EMAIL.value));
+			}
+		});
+	</script>
 </html>
