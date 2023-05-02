@@ -163,6 +163,26 @@
 				font-size: 2vw;
 				margin: 0 0.2vw 0.75vw 1vw;
 			}
+			.notification {
+				height: 20vh;
+				width: 80vw;
+				position: fixed;
+				top: 40vh;
+				left: 10vw;
+				background-color: var(--jsa-red);
+				color: var(--jsa-white);
+				border: 1vw solid var(--jsa-dark-red);
+				border-radius: 5vw;
+			}
+			.notification > h2, .notification > p {
+				text-align: center;
+			}
+			.notification > h2 {
+				font-size: 4vh;
+			}
+			.notification > p {
+				font-size: 2vh;
+			}
 		</style>
 	</head>
 	<body>
@@ -172,6 +192,14 @@
 			</h1>
 		</header>
 		<main>
+			<aside class="notification">
+				<h2>
+					Notice
+				</h2>
+				<p>
+					This information is currently unavailable. Please check the <a href="https://schedule.lib.calpoly.edu/rooms.php?i=2015">library website</a>.
+				</p>
+			</aside>
 			<section>
 				<h2>
 					Reserved times
